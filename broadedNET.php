@@ -122,7 +122,7 @@ $lcolor=$instance['BPN_lineColor'];
 
 if ( $title )
     echo $before_title . $title . $after_title;
-$response=file_get_contents("http://broaded.net/external.php?api=$BPNapi&num=$BPN_Num&url=$BPN_url&cat=$BPN_cat&useLine=$line&lcolor=$lcolor");  
+$response=file_get_contents("http://broaded.net/external.php?api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&useLine=$line&lcolor=$lcolor");  
 echo $response; 
 echo $after_widget;
 }

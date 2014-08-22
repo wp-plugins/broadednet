@@ -1,4 +1,4 @@
-=== BroadedNet ===
+=== BroaddedNet ===
 Contributors: emuki
 Tags: blog,blog traffic,blog netwok,blog community,blog promote
 Donate link: http://broaded.net
