@@ -27,6 +27,7 @@ $BPN_url= $instance['BPN_url'];
 $BPN_cat= $instance['BPN_cat'];
 $BPN_lineColor=$instance['BPN_lineColor'];
 $BPN_line=$instance['BPN_line'];
+$BPN_camtype=$instance['BPN_camtype'];
 	} 
 	else 
 	{
@@ -37,6 +38,7 @@ $BPN_line=$instance['BPN_line'];
 		$BPN_cat='1';
 		$BPN_lineColor='#F3F3F3';
 		$BPN_line='';
+		$BPN_camtype='';
 	}
 ?>
 
@@ -65,13 +67,23 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 </select>
 </p>
 
+<p>
+<label for="<?php echo $this->get_field_id('BPN_camtype'); ?>"><?php _e('What to show on this widget', 'wp_widget_plugin'); ?></label>
+<select name="<?php echo $this->get_field_name('BPN_camtype'); ?>">
+<option value="Article" <?php selected($BPN_camtype, "Article" );?>>Article Titles</option>
+<option value="300x250" <?php selected($BPN_camtype, "300x250" );?>>300x250 Banner</option>
+<option value="250x250" <?php selected($BPN_camtype, "250x250" );?>>250x250 Banner</option>
+<option value="468x60" <?php selected($BPN_camtype, "468x60" );?>>468x60 Banner</option>
+<option value="160x600" <?php selected($BPN_camtype, "160x600" );?>>160x600 Banner</option>
+<option value="728x90" <?php selected($BPN_camtype, "728x90" );?>>728x90 Banner</option>
+</select></p>
 
 <p>
-<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show', 'wp_widget_plugin'); ?></label>
+<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show (Articles)', 'wp_widget_plugin'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('BPN_Num'); ?>" name="<?php echo $this->get_field_name('BPN_Num'); ?>" type="text" value="<?php echo $BPN_Num; ?>" />
 </p>
 
-<label for="<?php echo $this->get_field_id('BPN_Line'); ?>"><?php _e('Seperate entries with lines', 'wp_widget_plugin'); ?></label>
+<label for="<?php echo $this->get_field_id('BPN_Line'); ?>"><?php _e('Seperate entries with lines (Articles)', 'wp_widget_plugin'); ?></label>
 <select name="<?php echo $this->get_field_name('BPN_line'); ?>">
 <option value="NO" <?php selected($BPN_line, "NO" );?>>NO</option>
 <option value="solid" <?php selected($BPN_line, "solid" );?>>Solid Lines</option>
@@ -81,10 +93,10 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 </select></p>
 
 <p>
-<label for="<?php echo $this->get_field_id('BPN_lineColor'); ?>"><?php _e('Line Color', 'wp_widget_plugin'); ?></label>
+<label for="<?php echo $this->get_field_id('BPN_lineColor'); ?>"><?php _e('Line Color (Articles)', 'wp_widget_plugin'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('BPN_lineColor'); ?>" name="<?php echo $this->get_field_name('BPN_lineColor'); ?>" type="text" value="<?php echo $BPN_lineColor; ?>" />
 </p>
-<p>Show BPN Link &nbsp; 
+<p>Show BPN Link (Articles)
 <input class="checkbox" type="checkbox" <?php checked($instance['BPN_url'], 'on'); ?> id="<?php echo $this->get_field_id('BPN_url'); ?>" name="<?php echo $this->get_field_name('BPN_url'); ?>" /> </p>
 
 <?php
@@ -104,6 +116,7 @@ $instance['BPN_url'] = strip_tags($new_instance['BPN_url']);
 $instance['BPN_cat'] = strip_tags($new_instance['BPN_cat']);
 $instance['BPN_line'] = strip_tags($new_instance['BPN_line']);
 $instance['BPN_lineColor'] = strip_tags($new_instance['BPN_lineColor']);
+$instance['BPN_camtype'] = strip_tags($new_instance['BPN_camtype']);
 
 return $instance;
 }
@@ -119,11 +132,22 @@ $BPN_url=$instance['BPN_url'];
 $BPN_cat=$instance['BPN_cat'];
 $line=$instance['BPN_line'];
 $lcolor=$instance['BPN_lineColor'];
+$BPN_camtype=$instance['BPN_camtype'];
 
 if ( $title )
     echo $before_title . $title . $after_title;
-$response=file_get_contents("http://broaded.net/external.php?api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&useLine=$line&lcolor=$lcolor");  
+	
+	if($BPN_camtype=="Article")
+		{
+			$external="useLine=$line&lcolor=$lcolor";
+		}
+			else
+		{
+			$external="camtype=$BPN_camtype";
+		}
+$response=file_get_contents("http://broaded.net/external.php?api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external");  
 echo $response; 
+
 echo $after_widget;
 }
 }
