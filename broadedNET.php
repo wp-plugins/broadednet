@@ -55,7 +55,16 @@ $BPN_camtype=$instance['BPN_camtype'];
 <label for="<?php echo $this->get_field_id('BPN_cat'); ?>"><?php _e('Select A Broaded Category', 'wp_widget_plugin'); ?></label>
 <select name="<?php echo $this->get_field_name('BPN_cat'); ?>">
 <?php
-$getCat=file_get_contents("http://broaded.net/catwidget.php"); 
+$ch = curl_init();
+
+// Set query data here with the URL
+curl_setopt($ch, CURLOPT_URL, 'http://broaded.net/catwidget.php'); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_TIMEOUT, '3');
+$getCat= trim(curl_exec($ch));
+curl_close($ch);
+
+//$getCat=file_get_contents("http://broaded.net/catwidget.php"); 
 $a=@split(',',$getCat);
 foreach($a as $x=>$x_value) {
 $sp=@split('\|',$x_value);
@@ -145,7 +154,15 @@ if ( $title )
 		{
 			$external="camtype=$BPN_camtype";
 		}
-$response=file_get_contents("http://broaded.net/external.php?api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external");  
+$extQuery="?api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external";
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'http://broaded.net/external.php'.$extQuery); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_TIMEOUT, '3');
+$response= trim(curl_exec($ch));
+curl_close($ch);
+
 echo $response; 
 
 echo $after_widget;
