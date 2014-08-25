@@ -143,8 +143,11 @@ $line=$instance['BPN_line'];
 $lcolor=$instance['BPN_lineColor'];
 $BPN_camtype=$instance['BPN_camtype'];
 
-if ( $title )
+echo $before_widget;
+if (!empty($title))
+{
     echo $before_title . $title . $after_title;
+}
 	
 	if($BPN_camtype=="Article")
 		{
