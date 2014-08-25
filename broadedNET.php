@@ -106,8 +106,6 @@ $instance['BPNapi'] = strip_tags($new_instance['BPNapi']);
 $instance['BPN_Num'] = strip_tags($new_instance['BPN_Num']);
 $instance['BPN_url'] = strip_tags($new_instance['BPN_url']);
 $instance['BPN_cat'] = strip_tags($new_instance['BPN_cat']);
-$instance['BPN_line'] = strip_tags($new_instance['BPN_line']);
-$instance['BPN_lineColor'] = strip_tags($new_instance['BPN_lineColor']);
 $instance['BPN_camtype'] = strip_tags($new_instance['BPN_camtype']);
 
 return $instance;
