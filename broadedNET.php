@@ -88,23 +88,10 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 </select></p>
 
 <p>
-<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show (Articles)', 'wp_widget_plugin'); ?></label>
+<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show (Articles only)', 'wp_widget_plugin'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('BPN_Num'); ?>" name="<?php echo $this->get_field_name('BPN_Num'); ?>" type="text" value="<?php echo $BPN_Num; ?>" />
 </p>
 
-<label for="<?php echo $this->get_field_id('BPN_Line'); ?>"><?php _e('Seperate entries with lines (Articles)', 'wp_widget_plugin'); ?></label>
-<select name="<?php echo $this->get_field_name('BPN_line'); ?>">
-<option value="NO" <?php selected($BPN_line, "NO" );?>>NO</option>
-<option value="solid" <?php selected($BPN_line, "solid" );?>>Solid Lines</option>
-<option value="dotted" <?php selected($BPN_line, "dotted" );?>>Dotted Lines</option>
-<option value="dashed" <?php selected($BPN_line, "dashed" );?>>Dashed Lines</option>
-
-</select></p>
-
-<p>
-<label for="<?php echo $this->get_field_id('BPN_lineColor'); ?>"><?php _e('Line Color (Articles)', 'wp_widget_plugin'); ?></label>
-<input class="widefat" id="<?php echo $this->get_field_id('BPN_lineColor'); ?>" name="<?php echo $this->get_field_name('BPN_lineColor'); ?>" type="text" value="<?php echo $BPN_lineColor; ?>" />
-</p>
 <p>Show BPN Link (Articles)
 <input class="checkbox" type="checkbox" <?php checked($instance['BPN_url'], 'on'); ?> id="<?php echo $this->get_field_id('BPN_url'); ?>" name="<?php echo $this->get_field_name('BPN_url'); ?>" /> </p>
 
