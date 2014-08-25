@@ -25,8 +25,6 @@ $BPNapi = $instance['BPNapi'];
 $BPN_Num = $instance['BPN_Num'];
 $BPN_url= $instance['BPN_url'];
 $BPN_cat= $instance['BPN_cat'];
-$BPN_lineColor=$instance['BPN_lineColor'];
-$BPN_line=$instance['BPN_line'];
 $BPN_camtype=$instance['BPN_camtype'];
 	} 
 	else 
@@ -36,8 +34,6 @@ $BPN_camtype=$instance['BPN_camtype'];
 		$BPN_Num = '5';
 		$BPN_url='';
 		$BPN_cat='1';
-		$BPN_lineColor='#F3F3F3';
-		$BPN_line='';
 		$BPN_camtype='';
 	}
 ?>
@@ -126,8 +122,6 @@ $BPNapi = $instance['BPNapi'];
 $BPN_Num=$instance['BPN_Num'];
 $BPN_url=$instance['BPN_url'];
 $BPN_cat=$instance['BPN_cat'];
-$line=$instance['BPN_line'];
-$lcolor=$instance['BPN_lineColor'];
 $BPN_camtype=$instance['BPN_camtype'];
 
 echo $before_widget;
@@ -138,7 +132,7 @@ if (!empty($title))
 	
 	if($BPN_camtype=="Article")
 		{
-			$external="useLine=$line&lcolor=$lcolor";
+			$external="";
 		}
 			else
 		{
