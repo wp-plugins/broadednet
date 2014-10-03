@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: BroadedNET
+Plugin Name: BroadedNet
 Plugin URI: http://broaded.net/
 Description: A wide network for blog promotion and traffic
 Author: Enstine Muki
-Version: 1.0
+Version: 1.1
 Author URI: http://enstinemuki.com/
 */
 
@@ -12,7 +12,7 @@ class BroadedNet extends WP_Widget {
 function BroadedNet()
   {
     $widget_ops = array('classname' => 'BroadedNet', 'description' => 'A wide network for blog promotion and traffic' );
-    $this->WP_Widget('BroadedNet', 'BroadedNET', $widget_ops);
+    $this->WP_Widget('BroadedNet', 'BroadedNet', $widget_ops);
   }
 
 
@@ -26,6 +26,7 @@ $BPN_Num = $instance['BPN_Num'];
 $BPN_url= $instance['BPN_url'];
 $BPN_cat= $instance['BPN_cat'];
 $BPN_camtype=$instance['BPN_camtype'];
+$BPN_custom_widget=$instance['BPN_custom_widget'];
 	} 
 	else 
 	{
@@ -35,6 +36,7 @@ $BPN_camtype=$instance['BPN_camtype'];
 		$BPN_url='';
 		$BPN_cat='1';
 		$BPN_camtype='';
+		$BPN_custom_widget='';
 	}
 ?>
 
@@ -75,7 +77,8 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 <p>
 <label for="<?php echo $this->get_field_id('BPN_camtype'); ?>"><?php _e('What to show on this widget', 'wp_widget_plugin'); ?></label>
 <select name="<?php echo $this->get_field_name('BPN_camtype'); ?>">
-<option value="Article" <?php selected($BPN_camtype, "Article" );?>>Article Titles</option>
+<option value="MyCustomWidget" <?php selected($BPN_camtype, "MyCustomWidget" );?>>My Custom Widget</option>
+<option value="Article" <?php selected($BPN_camtype, "Article" );?>>Random Article Titles</option>
 <option value="300x250" <?php selected($BPN_camtype, "300x250" );?>>300x250 Banner</option>
 <option value="250x250" <?php selected($BPN_camtype, "250x250" );?>>250x250 Banner</option>
 <option value="468x60" <?php selected($BPN_camtype, "468x60" );?>>468x60 Banner</option>
@@ -84,11 +87,16 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 </select></p>
 
 <p>
-<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show (Articles only)', 'wp_widget_plugin'); ?></label>
+<label for="<?php echo $this->get_field_id('BPN_custom_widget'); ?>"><?php _e('Your Broaded Custom Widget ID', 'wp_widget_plugin'); ?></label>
+<input class="widefat" id="<?php echo $this->get_field_id('BPN_custom_widget'); ?>" name="<?php echo $this->get_field_name('BPN_custom_widget'); ?>" type="text" value="<?php echo $BPN_custom_widget; ?>" />
+</p>
+
+<p>
+<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show on this widget. Minimum is 5 (Articles only)', 'wp_widget_plugin'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('BPN_Num'); ?>" name="<?php echo $this->get_field_name('BPN_Num'); ?>" type="text" value="<?php echo $BPN_Num; ?>" />
 </p>
 
-<p>Show BPN Link (Articles)
+<p>Show <i>Powered by</i> Link (Articles)
 <input class="checkbox" type="checkbox" <?php checked($instance['BPN_url'], 'on'); ?> id="<?php echo $this->get_field_id('BPN_url'); ?>" name="<?php echo $this->get_field_name('BPN_url'); ?>" /> </p>
 
 <?php
@@ -101,12 +109,17 @@ if(empty($new_instance['BPN_Num']))
 	{
 		$new_instance['BPN_Num'] = 5;
 	}
-$instance['title'] = strip_tags($new_instance['title']);
-$instance['BPNapi'] = strip_tags($new_instance['BPNapi']);
+if($new_instance['BPN_Num'] < 5 )
+	{
+		$new_instance['BPN_Num'] = 5;
+	}
+$instance['title'] = strip_tags(trim($new_instance['title']));
+$instance['BPNapi'] = strip_tags(trim($new_instance['BPNapi']));
 $instance['BPN_Num'] = strip_tags($new_instance['BPN_Num']);
 $instance['BPN_url'] = strip_tags($new_instance['BPN_url']);
 $instance['BPN_cat'] = strip_tags($new_instance['BPN_cat']);
 $instance['BPN_camtype'] = strip_tags($new_instance['BPN_camtype']);
+$instance['BPN_custom_widget'] = strip_tags(trim($new_instance['BPN_custom_widget']));
 
 return $instance;
 }
@@ -121,7 +134,7 @@ $BPN_Num=$instance['BPN_Num'];
 $BPN_url=$instance['BPN_url'];
 $BPN_cat=$instance['BPN_cat'];
 $BPN_camtype=$instance['BPN_camtype'];
-
+$BPN_custom_widget = $instance['BPN_custom_widget'];
 echo $before_widget;
 if (!empty($title))
 {
@@ -132,11 +145,16 @@ if (!empty($title))
 		{
 			$external="";
 		}
+			elseif($BPN_camtype=="MyCustomWidget")
+		{	
+			/////Do something
+			$external="";
+		}
 			else
 		{
 			$external="camtype=$BPN_camtype";
 		}
-$extQuery="?api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external";
+$extQuery="?MyCustomWidget=$BPN_camtype&MyCustomWidgetId=$BPN_custom_widget&api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'http://broaded.net/external.php'.$extQuery); 

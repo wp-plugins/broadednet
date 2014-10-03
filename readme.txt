@@ -1,6 +1,6 @@
-=== MyCommentAuthors ===
+=== BroadedNet ===
 Contributors: emuki
-Tags: blog,blog traffic,blog netwok,blog community,blog promote
+Tags: blog,blog traffic,blog netwok,blog community,blog promote,blog promotion tool,traffic
 Donate link: http://broaded.net
 Requires at least: 3.0
 Tested up to: 4.0
@@ -28,7 +28,11 @@ A. While this is the only means we have now to connect Wordpress Blogs to the co
 
 == Changelog ==
 
+1.1 Bug correction
+
 1.0 Initial release
 
 == Upgrade Notice ==
-1.0 is the current stable version
+1.1 stable version
+
+1.0 Initial release
