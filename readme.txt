@@ -28,11 +28,15 @@ A. While this is the only means we have now to connect Wordpress Blogs to the co
 
 == Changelog ==
 
+1.2 Security update
+
 1.1 Bug correction
 
 1.0 Initial release
 
 == Upgrade Notice ==
+1.2 Security update
+
 1.1 stable version
 
 1.0 Initial release

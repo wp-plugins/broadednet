@@ -4,7 +4,7 @@ Plugin Name: BroadedNet
 Plugin URI: http://broaded.net/
 Description: A wide network for blog promotion and traffic
 Author: Enstine Muki
-Version: 1.1
+Version: 1.2
 Author URI: http://enstinemuki.com/
 */
 
@@ -162,8 +162,14 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_TIMEOUT, '3');
 $response= trim(curl_exec($ch));
 curl_close($ch);
-
-echo $response; 
+if (strpos($response,'broaded_OK_show') !== false)
+ {
+    echo $response; 
+ }
+ 	else
+{
+	echo"We are upgrading <a href=\"http://broaded.net\" rel=\"nofollow\" target=\"_blank\">BroadedNet, Blog Traffic Tool</a>. Please keep reading <a href=\"".$_SERVER['HTTP_HOST']."\">".$_SERVER['HTTP_HOST']."</a>";
+}
 
 echo $after_widget;
 }
