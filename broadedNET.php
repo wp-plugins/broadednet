@@ -4,7 +4,7 @@ Plugin Name: BroadedNet
 Plugin URI: http://broaded.net/
 Description: A wide network for blog promotion and traffic
 Author: Enstine Muki
-Version: 1.2
+Version: 1.3
 Author URI: http://enstinemuki.com/
 */
 
@@ -24,6 +24,8 @@ $title = esc_attr($instance['title']);
 $BPNapi = $instance['BPNapi'];
 $BPN_Num = $instance['BPN_Num'];
 $BPN_url= $instance['BPN_url'];
+$show_gravatar= $instance['show_gravatar'];
+$gravatar_size = $instance['gravatar_size'];
 $BPN_cat= $instance['BPN_cat'];
 $BPN_camtype=$instance['BPN_camtype'];
 $BPN_custom_widget=$instance['BPN_custom_widget'];
@@ -37,6 +39,8 @@ $BPN_custom_widget=$instance['BPN_custom_widget'];
 		$BPN_cat='1';
 		$BPN_camtype='';
 		$BPN_custom_widget='';
+		$gravatar_size='80';
+		$show_gravatar='on';
 	}
 ?>
 
@@ -95,6 +99,15 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 <label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show on this widget. Minimum is 5 (Articles only)', 'wp_widget_plugin'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('BPN_Num'); ?>" name="<?php echo $this->get_field_name('BPN_Num'); ?>" type="text" value="<?php echo $BPN_Num; ?>" />
 </p>
+<p>Show Gravatar
+<input class="checkbox" type="checkbox" <?php checked($instance['show_gravatar'], 'on'); ?> id="<?php echo $this->get_field_id('show_gravatar'); ?>" name="<?php echo $this->get_field_name('show_gravatar'); ?>" /> </p>
+
+<p>Gravatar Size (Default is 80)
+<input class="widefat" id="<?php echo $this->get_field_id('gravatar_size'); ?>" name="<?php echo $this->get_field_name('gravatar_size'); ?>" type="text" value="<?php echo $gravatar_size; ?>" />
+</p>
+
+
+
 
 <p>Show <i>Powered by</i> Link (Articles)
 <input class="checkbox" type="checkbox" <?php checked($instance['BPN_url'], 'on'); ?> id="<?php echo $this->get_field_id('BPN_url'); ?>" name="<?php echo $this->get_field_name('BPN_url'); ?>" /> </p>
@@ -113,6 +126,16 @@ if($new_instance['BPN_Num'] < 5 )
 	{
 		$new_instance['BPN_Num'] = 5;
 	}
+///////////////////////Set default gravata
+if(empty($new_instance['gravatar_size']))
+	{
+		$new_instance['gravatar_size'] = 80;
+	}
+if($new_instance['gravatar_size'] > 80 )
+	{
+		$new_instance['gravatar_size'] = 80;
+	}
+/////////////////////////////////////////
 $instance['title'] = strip_tags(trim($new_instance['title']));
 $instance['BPNapi'] = strip_tags(trim($new_instance['BPNapi']));
 $instance['BPN_Num'] = strip_tags($new_instance['BPN_Num']);
@@ -120,6 +143,8 @@ $instance['BPN_url'] = strip_tags($new_instance['BPN_url']);
 $instance['BPN_cat'] = strip_tags($new_instance['BPN_cat']);
 $instance['BPN_camtype'] = strip_tags($new_instance['BPN_camtype']);
 $instance['BPN_custom_widget'] = strip_tags(trim($new_instance['BPN_custom_widget']));
+$instance['show_gravatar'] = strip_tags($new_instance['show_gravatar']);
+$instance['gravatar_size'] = strip_tags($new_instance['gravatar_size']);
 
 return $instance;
 }
@@ -135,6 +160,9 @@ $BPN_url=$instance['BPN_url'];
 $BPN_cat=$instance['BPN_cat'];
 $BPN_camtype=$instance['BPN_camtype'];
 $BPN_custom_widget = $instance['BPN_custom_widget'];
+$show_gravatar= $instance['show_gravatar'];
+$gravatar_size = $instance['gravatar_size'];
+$gravatarOption="showGravatar=$show_gravatar&dsize=$gravatar_size";
 echo $before_widget;
 if (!empty($title))
 {
@@ -154,7 +182,7 @@ if (!empty($title))
 		{
 			$external="camtype=$BPN_camtype";
 		}
-$extQuery="?MyCustomWidget=$BPN_camtype&MyCustomWidgetId=$BPN_custom_widget&api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external";
+$extQuery="?MyCustomWidget=$BPN_camtype&MyCustomWidgetId=$BPN_custom_widget&api=$BPNapi&num=$BPN_Num&r=".$_SERVER['HTTP_HOST']."&url=$BPN_url&cat=$BPN_cat&$external&$gravatarOption";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'http://broaded.net/external.php'.$extQuery); 
