@@ -3,7 +3,7 @@ Contributors: emuki
 Tags: blog,blog traffic,blog netwok,blog community,blog promote,blog promotion tool,traffic
 Donate link: http://broaded.net
 Requires at least: 3.0
-Tested up to: 4.1
+Tested up to: 4.1.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -27,8 +27,11 @@ A. While this is the only means we have now to connect Wordpress Blogs to the co
 1. BroadedNet Widget configuration
 2. This is how the widget looks like on one blog in the network. This widget is configured to show gravatar of bloggers who posted campaings.
 3. Here is the widget on another blog, this time configured not to show gravatar. Note that the widget takes the inbuilt design of your theme.
+4. From version 1.4, Sticky Posts were added to be shown on top of the widget. Here is a sample.
 
 == Changelog ==
+
+1.4 Setting the number of entries on the widget
 
 1.3 Added more widget features
 
@@ -39,6 +42,8 @@ A. While this is the only means we have now to connect Wordpress Blogs to the co
 1.0 Initial release
 
 == Upgrade Notice ==
+1.4 Added Sticky Entries to widget
+
 1.3 More features were added on the widet in this version
 
 1.2 Security update

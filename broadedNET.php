@@ -4,7 +4,7 @@ Plugin Name: BroadedNet
 Plugin URI: http://broaded.net/
 Description: A wide network for blog promotion and traffic
 Author: Enstine Muki
-Version: 1.3
+Version: 1.4
 Author URI: http://enstinemuki.com/
 */
 
@@ -96,7 +96,7 @@ echo"<option value=\"".$sp[1]."\" ".selected($BPN_cat, $sp[1] ).">$sp[0]</option
 </p>
 
 <p>
-<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show on this widget. Minimum is 5 (Articles only)', 'wp_widget_plugin'); ?></label>
+<label for="<?php echo $this->get_field_id('BPN_Num'); ?>"><?php _e('Num of Entries to show on this widget (Articles only)', 'wp_widget_plugin'); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id('BPN_Num'); ?>" name="<?php echo $this->get_field_name('BPN_Num'); ?>" type="text" value="<?php echo $BPN_Num; ?>" />
 </p>
 <p>Show Gravatar
@@ -122,9 +122,9 @@ if(empty($new_instance['BPN_Num']))
 	{
 		$new_instance['BPN_Num'] = 5;
 	}
-if($new_instance['BPN_Num'] < 5 )
+if($new_instance['BPN_Num'] < 3 )
 	{
-		$new_instance['BPN_Num'] = 5;
+		$new_instance['BPN_Num'] = 3;
 	}
 ///////////////////////Set default gravata
 if(empty($new_instance['gravatar_size']))
