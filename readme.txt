@@ -1,5 +1,5 @@
 === BroadedNet ===
-Contributors: emuki
+Contributors: dangpraveen
 Tags: blog,blog traffic,blog netwok,blog community,blog promote,blog promotion tool,traffic
 Donate link: http://broaded.net
 Requires at least: 3.0
